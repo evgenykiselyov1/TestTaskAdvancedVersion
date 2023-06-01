@@ -13,7 +13,7 @@ public with sharing class JsonDataUploaderController {
         try {
             String fileBodyAsString = EncodingUtil.base64Decode(data).toString();
             List<Sobject> records = setNewRecordsFromJSON(sobjectName, fileBodyAsString);
-            Database.SaveResult[] result=Database.insert(records);
+            Database.SaveResult[] result = Database.insert(records);
             List<String> ids = new List<String>();
             for(Database.SaveResult res: result){
                 ids.add(res.getId());
@@ -124,7 +124,9 @@ public with sharing class JsonDataUploaderController {
     @AuraEnabled(cacheable=true)
     public static Map<String,String> getEntityDefinitions(){
         Map<String,String> availableObjects = new Map<String,String>();
-        for (EntityDefinition entity : [SELECT Label, QualifiedApiName FROM EntityDefinition WHERE IsCustomizable = true]) {
+        for (EntityDefinition entity : [SELECT Label, QualifiedApiName 
+                                        FROM EntityDefinition 
+                                        WHERE IsCustomizable = true]) {
             availableObjects.put(entity.QualifiedApiName, entity.Label);
         }
         return availableObjects;
