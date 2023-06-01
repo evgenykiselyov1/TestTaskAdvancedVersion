@@ -1,0 +1,30 @@
+<!--
+  @description       : This is a markup for scroll-bar of the available objects in the org
+  @author            : Ievgen Kyselov
+  @group             : 
+  @last modified on  : 06-01-2023
+  @last modified by  : Ievgen Kyselov
+-->
+<template>
+    <div>
+        <div style="border: 1px solid #ccc!important;border-radius: 5px;width: -webkit-fill-available;float: left;">
+            <div style="width: 50%;float: left;">
+                <div style="text-align: center;width: 100%;font-size: 16px;color: cornflowerblue;"><span>Select the imported object</span></div>
+                <div class="scrollbar">
+                    <template for:each={wiredSobjects} for:item="object" for:index="index">
+                        <div key={object.apiname} data-target-id={object.apiname} class="object_tab" onclick={showSelectedObject}>
+                                {object.label}
+                        </div>
+                    </template>        
+                </div>    
+            </div>
+            <template if:true={isObjectSelected}>
+                <div style="width: 50%;float: left;">
+                    <div style="text-align: center;width: 100%;font-size: 16px;color: cornflowerblue;"><span>Selected imported object</span></div>
+                    <div class="selected_object"><span>{selectedObjectLabel}</span></div>
+                    <div class="selected_object"><span>({selectedObjectName})</span></div>                
+                </div>
+            </template>          
+        </div>
+    </div>
+    </template>
